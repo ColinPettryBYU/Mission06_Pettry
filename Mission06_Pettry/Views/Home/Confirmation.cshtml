@@ -1,0 +1,15 @@
+@* Confirmation page - displayed after successfully adding a movie *@
+@model Mission06_Pettry.Models.Movie
+
+@{
+    ViewData["Title"] = "Movie Added";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Movie Added!</h1>
+    <br />
+    <p>"@Model.Title" has been successfully added to the collection.</p>
+    <br />
+    <a asp-controller="Home" asp-action="AddMovie" class="btn btn-primary">Add Another Movie</a>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Back to Home</a>
+</div>

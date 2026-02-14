@@ -1,0 +1,91 @@
+@* Add Movie page - form to enter a new movie into Joel's collection *@
+@model Mission06_Pettry.Models.Movie
+
+@{
+    ViewData["Title"] = "Add Movie";
+}
+
+<h1 class="display-4 text-center">Add a Movie</h1>
+<br />
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        @* Form posts to the AddMovie action *@
+        <form asp-controller="Home" asp-action="AddMovie" method="post">
+
+            @* Category dropdown - populated from database *@
+            <div class="mb-3">
+                <label asp-for="CategoryId" class="form-label">Category</label>
+                <select asp-for="CategoryId" class="form-select">
+                    <option value="">-- Select a Category --</option>
+                    @foreach (var category in (ViewBag.Categories as List<Mission06_Pettry.Models.Category>)!)
+                    {
+                        <option value="@category.CategoryId">@category.CategoryName</option>
+                    }
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+
+            @* Title - required text input *@
+            <div class="mb-3">
+                <label asp-for="Title" class="form-label">Title</label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            @* Year - required number input *@
+            <div class="mb-3">
+                <label asp-for="Year" class="form-label">Year</label>
+                <input asp-for="Year" class="form-control" type="number" />
+                <span asp-validation-for="Year" class="text-danger"></span>
+            </div>
+
+            @* Director - required text input *@
+            <div class="mb-3">
+                <label asp-for="Director" class="form-label">Director</label>
+                <input asp-for="Director" class="form-control" />
+                <span asp-validation-for="Director" class="text-danger"></span>
+            </div>
+
+            @* Rating dropdown - G, PG, PG-13, R per assignment instructions *@
+            <div class="mb-3">
+                <label asp-for="Rating" class="form-label">Rating</label>
+                <select asp-for="Rating" class="form-select">
+                    <option value="">-- Select a Rating --</option>
+                    <option value="G">G</option>
+                    <option value="PG">PG</option>
+                    <option value="PG-13">PG-13</option>
+                    <option value="R">R</option>
+                </select>
+                <span asp-validation-for="Rating" class="text-danger"></span>
+            </div>
+
+            @* Edited - boolean checkbox (not required) *@
+            <div class="mb-3 form-check">
+                <input asp-for="Edited" class="form-check-input" type="checkbox" />
+                <label asp-for="Edited" class="form-check-label">Edited?</label>
+            </div>
+
+            @* Lent To - optional text input *@
+            <div class="mb-3">
+                <label asp-for="LentTo" class="form-label">Lent To</label>
+                <input asp-for="LentTo" class="form-control" />
+            </div>
+
+            @* Notes - optional, limited to 25 characters *@
+            <div class="mb-3">
+                <label asp-for="Notes" class="form-label">Notes</label>
+                <input asp-for="Notes" class="form-control" maxlength="25" />
+                <span asp-validation-for="Notes" class="text-danger"></span>
+            </div>
+
+            @* Submit button *@
+            <button type="submit" class="btn btn-primary">Add Movie</button>
+        </form>
+    </div>
+</div>
+
+@* Include validation scripts for client-side validation *@
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
