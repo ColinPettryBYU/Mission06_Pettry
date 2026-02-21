@@ -1,0 +1,45 @@
+@* Delete Movie confirmation page - asks user to confirm before deleting *@
+@model Mission06_Pettry.Models.Movie
+
+@{
+    ViewData["Title"] = "Delete Movie";
+}
+
+<h1 class="display-4 text-center">Delete Movie</h1>
+<br />
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Are you sure you want to delete this movie?</h5>
+                <br />
+
+                @* Display movie details for confirmation *@
+                <dl class="row">
+                    <dt class="col-sm-4">Title</dt>
+                    <dd class="col-sm-8">@Model.Title</dd>
+
+                    <dt class="col-sm-4">Year</dt>
+                    <dd class="col-sm-8">@Model.Year</dd>
+
+                    <dt class="col-sm-4">Director</dt>
+                    <dd class="col-sm-8">@(Model.Director ?? "—")</dd>
+
+                    <dt class="col-sm-4">Category</dt>
+                    <dd class="col-sm-8">@(Model.Category?.CategoryName ?? "—")</dd>
+
+                    <dt class="col-sm-4">Rating</dt>
+                    <dd class="col-sm-8">@(Model.Rating ?? "—")</dd>
+                </dl>
+
+                @* Form to confirm deletion *@
+                <form asp-controller="Home" asp-action="DeleteConfirmed" method="post">
+                    <input type="hidden" name="movieId" value="@Model.MovieId" />
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <a asp-action="MovieCollection" class="btn btn-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

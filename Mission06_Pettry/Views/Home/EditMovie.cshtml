@@ -1,19 +1,22 @@
-@* Add Movie page - form to enter a new movie into Joel's collection *@
+@* Edit Movie page - form to update an existing movie in the collection *@
 @model Mission06_Pettry.Models.Movie
 
 @{
-    ViewData["Title"] = "Add Movie";
+    ViewData["Title"] = "Edit Movie";
 }
 
-<h1 class="display-4 text-center">Add a Movie</h1>
+<h1 class="display-4 text-center">Edit Movie</h1>
 <br />
 
 <div class="row justify-content-center">
     <div class="col-md-6">
-        @* Form posts to the AddMovie action *@
-        <form asp-controller="Home" asp-action="AddMovie" method="post">
+        @* Form posts to the EditMovie action *@
+        <form asp-controller="Home" asp-action="EditMovie" method="post">
 
-            @* Category dropdown - populated from database (optional) *@
+            @* Hidden field to preserve the MovieId *@
+            <input type="hidden" asp-for="MovieId" />
+
+            @* Category dropdown - populated from database *@
             <div class="mb-3">
                 <label asp-for="CategoryId" class="form-label">Category</label>
                 <select asp-for="CategoryId" class="form-select">
@@ -76,14 +79,13 @@
                 <span asp-validation-for="Notes" class="text-danger"></span>
             </div>
 
-            @* Submit button *@
-            <button type="submit" class="btn btn-primary">Add Movie</button>
+            @* Submit and Cancel buttons *@
+            <button type="submit" class="btn btn-primary">Save Changes</button>
             <a asp-action="MovieCollection" class="btn btn-secondary">Cancel</a>
         </form>
     </div>
 </div>
 
-@* Include validation scripts for client-side validation *@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
